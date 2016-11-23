@@ -230,8 +230,8 @@ void new_mine()
 void init_plansza(string name)
 {
 	for (int i = 0; i < SCREEN_WIDTH; ++i)
-	for (int j = 0; j < SCREEN_HEIGHT; ++j)
-		plansza.plansza[i][j] = FREE;
+		for (int j = 0; j < SCREEN_HEIGHT; ++j)
+			plansza.plansza[i][j] = FREE;
 
 	plansza.punkty = 0;
 

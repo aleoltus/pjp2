@@ -14,6 +14,7 @@ ALLEGRO_FONT *font;
 
 int szer = 400, wys = 400;
 
+
 #pragma region menu
 
 const string pozycje[] = { "Nowa Gra", "Ranking", "Koniec" };
@@ -146,7 +147,7 @@ void draw_wybor(int pos, string imie){
 	al_clear_to_color(al_map_rgb(0, 0, 100));
 
 	al_draw_text(font, al_map_rgb(255, 255, 255), 10, 100, 0, "Wpisz imie: ");
-	al_draw_rectangle(110, 100, 330, 120, al_map_rgba(0, 255, 0, 128), 2);
+	al_draw_rectangle(110, 100, 330, 120, al_map_rgba(0, 255, 150, 255), 2);
 
 	al_draw_text(font, al_map_rgb(255, 255, 255), 140, 160, 0, "Wybierz weza: ");
 	auto red = al_map_rgb(255, 0, 0);
