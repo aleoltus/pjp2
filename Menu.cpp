@@ -11,9 +11,9 @@
 static bool wybor(options&, ALLEGRO_EVENT_QUEUE*);
 void highScore(ALLEGRO_EVENT_QUEUE* q);
 ALLEGRO_FONT *font;
+ALLEGRO_BITMAP *obrazek;
 
 int szer = 400, wys = 400;
-
 
 #pragma region menu
 
@@ -22,10 +22,12 @@ const string pozycje[] = { "Nowa Gra", "Ranking", "Koniec" };
 void draw_menu(int pos)
 {
 	al_clear_to_color(al_map_rgb(0, 0, 100));
+	obrazek = al_load_bitmap("Resources/snake.png");
+	al_draw_bitmap(obrazek, 90, 90, 0);
 
 	auto white = al_map_rgb(255, 255, 255);
 	auto red = al_map_rgb(255, 0, 0);
-	al_draw_text(font, al_map_rgb(255, 255, 255), 140, 100, 0, "Snake - Gra");
+	//al_draw_text(font, al_map_rgb(255, 255, 255), 140, 100, 0, "Snake - Gra");
 
 	al_draw_rounded_rectangle(105, 190, 285, 240, 20, 20, al_map_rgba(0, 255, 0, 128), 2);
 	al_draw_text(font, pos == 0 ? red : white, 155, 205, 0, "Nowa Gra");
@@ -54,6 +56,7 @@ options menu()
 	al_init_font_addon();
 	al_install_keyboard();
 	al_init_ttf_addon();
+	al_init_image_addon();
 
 	ALLEGRO_DISPLAY *display = al_create_display(szer, wys);
 	al_set_window_title(display, "Snake - Gra");
@@ -147,7 +150,7 @@ void draw_wybor(int pos, string imie){
 	al_clear_to_color(al_map_rgb(0, 0, 100));
 
 	al_draw_text(font, al_map_rgb(255, 255, 255), 10, 100, 0, "Wpisz imie: ");
-	al_draw_rectangle(110, 100, 330, 120, al_map_rgba(0, 255, 150, 255), 2);
+	al_draw_rectangle(110, 100, 330, 120, al_map_rgba(0, 255, 0, 128), 2);
 
 	al_draw_text(font, al_map_rgb(255, 255, 255), 140, 160, 0, "Wybierz weza: ");
 	auto red = al_map_rgb(255, 0, 0);
