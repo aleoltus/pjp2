@@ -263,6 +263,7 @@ struct grafiki_t
 	ALLEGRO_BITMAP *food[5];
 	ALLEGRO_BITMAP *coin;
 	ALLEGRO_BITMAP *mine;
+	ALLEGRO_BITMAP* tlo;
 
 	ALLEGRO_FONT *font;
 
@@ -270,11 +271,12 @@ struct grafiki_t
 
 void load_graph(string color)
 {
+	//grafiki.tlo = al_load_bitmap("Resources/tlo.jpg");
 	grafiki.image_snake = al_load_bitmap(("Resources/snake_body_"+color+".png").c_str());
 	grafiki.image_snake_tail = al_load_bitmap(("Resources/snake_tail_"+color+".png").c_str());
 	grafiki.image_snake_head = al_load_bitmap(("Resources/snake_head_"+color+".png").c_str());
 
-	//grafiki.food = al_load_bitmap("Resources/food.png");
+//	grafiki.food = al_load_bitmap("Resources/food.png");
 
 	grafiki.food[0] = al_load_bitmap("Resources/apple.png");
 	grafiki.food[1] = al_load_bitmap("Resources/pear.png");
@@ -338,7 +340,7 @@ void draw(snake_t& s, plansza_t& p)
 	{
 		al_draw_filled_rectangle(0, 0, (BOX_SIZE * SCREEN_HEIGHT), (BOX_SIZE * SCREEN_HEIGHT + HIGH_RAM), al_map_rgba(0, 0, 0, 200));
 
-		al_draw_textf(grafiki.font, al_map_rgb(255, 0, 0), BOX_SIZE * SCREEN_WIDTH / 2, (BOX_SIZE * SCREEN_HEIGHT + HIGH_RAM) / 2, ALLEGRO_ALIGN_CENTRE, "KONIEC GRY");
+		al_draw_textf(grafiki.font, al_map_rgb(255, 0, 0), BOX_SIZE * SCREEN_WIDTH / 2, (BOX_SIZE * SCREEN_HEIGHT + HIGH_RAM) / 2, ALLEGRO_ALIGN_CENTRE, "-----KONIEC GRY-----");
 	}
 
 }
@@ -365,6 +367,7 @@ void gra(options op)
 	display = al_create_display(SCREEN_WIDTH * BOX_SIZE, SCREEN_HEIGHT * BOX_SIZE + HIGH_RAM);
 	
 	al_clear_to_color(al_map_rgb(255, 233, 0));
+	//al_draw_bitmap(grafiki.tlo, 0, 0, 0);
 	al_draw_line(0, 20, 400, 20, al_map_rgb(0, 0, 0), 1);
 
 	if (!display)
@@ -503,10 +506,12 @@ void gra(options op)
 		}
 		draw(snake, plansza);
 		al_flip_display();
+		//al_draw_bitmap(grafiki.tlo, 0, 0, 0);
 		al_clear_to_color(al_map_rgb(255, 233, 0));
 		al_draw_line(0, 20, 400, 20, al_map_rgb(0, 0, 0), 1);
 
 	}
 	
 	al_destroy_display(display);
+	//al_destroy_bitmap(grafiki.tlo);
 }

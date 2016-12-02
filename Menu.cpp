@@ -13,7 +13,7 @@ void highScore(ALLEGRO_EVENT_QUEUE* q);
 ALLEGRO_FONT *font;
 ALLEGRO_BITMAP *obrazek;
 
-int szer = 400, wys = 400;
+int szer = 600, wys = 600;
 
 #pragma region menu
 
@@ -23,20 +23,20 @@ void draw_menu(int pos)
 {
 	al_clear_to_color(al_map_rgb(0, 0, 100));
 	obrazek = al_load_bitmap("Resources/snake.png");
-	al_draw_bitmap(obrazek, 90, 90, 0);
+	al_draw_bitmap(obrazek, 190, 190, 0);
 
 	auto white = al_map_rgb(255, 255, 255);
 	auto red = al_map_rgb(255, 0, 0);
 	//al_draw_text(font, al_map_rgb(255, 255, 255), 140, 100, 0, "Snake - Gra");
 
-	al_draw_rounded_rectangle(105, 190, 285, 240, 20, 20, al_map_rgba(0, 255, 0, 128), 2);
-	al_draw_text(font, pos == 0 ? red : white, 155, 205, 0, "Nowa Gra");
+	al_draw_rounded_rectangle(205, 290, 385, 340, 20, 20, al_map_rgba(0, 255, 0, 128), 2);
+	al_draw_text(font, pos == 0 ? red : white, 255, 305, 0, "Nowa Gra");
 
-	al_draw_rounded_rectangle(105, 250, 285, 300, 20, 20, al_map_rgba(0, 255, 0, 128), 2);
-	al_draw_text(font, pos == 1 ? red : white, 160, 265, 0, "Ranking");
+	al_draw_rounded_rectangle(205, 350, 385, 400, 20, 20, al_map_rgba(0, 255, 0, 128), 2);
+	al_draw_text(font, pos == 1 ? red : white, 260, 365, 0, "Ranking");
 
-	al_draw_rounded_rectangle(105, 310, 285, 360, 20, 20, al_map_rgba(0, 255, 0, 128), 2);
-	al_draw_text(font, pos == 2 ? red : white, 165, 325, 0, "Koniec");
+	al_draw_rounded_rectangle(205, 410, 385, 460, 20, 20, al_map_rgba(0, 255, 0, 128), 2);
+	al_draw_text(font, pos == 2 ? red : white, 265, 425, 0, "Koniec");
 	al_flip_display();
 }
 
@@ -149,68 +149,68 @@ void draw_wybor(int pos, string imie){
 	al_init_primitives_addon();
 	al_clear_to_color(al_map_rgb(0, 0, 100));
 
-	al_draw_text(font, al_map_rgb(255, 255, 255), 10, 100, 0, "Wpisz imie: ");
-	al_draw_rectangle(110, 100, 330, 120, al_map_rgba(0, 255, 0, 128), 2);
+	al_draw_text(font, al_map_rgb(255, 255, 255), 110, 200, 0, "Wpisz imie: ");
+	al_draw_rectangle(210, 200, 430, 220, al_map_rgba(0, 255, 0, 128), 2);
 
-	al_draw_text(font, al_map_rgb(255, 255, 255), 140, 160, 0, "Wybierz weza: ");
+	al_draw_text(font, al_map_rgb(255, 255, 255), 240, 260, 0, "Wybierz weza: ");
 	auto red = al_map_rgb(255, 0, 0);
 	auto green = al_map_rgb(0, 255, 0);
 
-	al_draw_text(font, al_map_rgb(255, 255, 255), 110, 100, 0, imie.c_str());
+	al_draw_text(font, al_map_rgb(255, 255, 255), 210, 200, 0, imie.c_str());
 
-	al_draw_rectangle(105, 190, 145, 230, pos==0?red:green, 2);
+	al_draw_rectangle(205, 290, 245, 330, pos==0?red:green, 2);
 	grafiki.x =  al_load_bitmap("Resources/green.png");
-	al_draw_bitmap(grafiki.x, 105, 190, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
-
-	al_draw_rectangle(155, 190, 195, 230, pos==1?red:green, 2);
-	grafiki.x = al_load_bitmap("Resources/red.png");
-	al_draw_bitmap(grafiki.x, 155, 190, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
-
-	al_draw_rectangle(205, 190, 245, 230, pos==2?red:green, 2);
-	grafiki.x = al_load_bitmap("Resources/blue.png");
-	al_draw_bitmap(grafiki.x, 205, 190, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
-
-	al_draw_rectangle(255, 190, 295, 230, pos==3?red:green, 2);
-	grafiki.x = al_load_bitmap("Resources/sweet.png");
-	al_draw_bitmap(grafiki.x, 255, 190, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
-
-	al_draw_rectangle(105, 240, 145, 280, pos==4?red:green, 2);
-	grafiki.x = al_load_bitmap("Resources/bluedot.png");
-	al_draw_bitmap(grafiki.x, 105, 240, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
-
-	al_draw_rectangle(155, 240, 195, 280, pos==5?red:green, 2);
-	grafiki.x = al_load_bitmap("Resources/greendot.png");
-	al_draw_bitmap(grafiki.x, 155, 240, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
-
-	al_draw_rectangle(205, 240, 245, 280, pos==6?red:green, 2);
-	grafiki.x = al_load_bitmap("Resources/sweetdot.png");
-	al_draw_bitmap(grafiki.x, 205, 240, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
-
-	al_draw_rectangle(255, 240, 295, 280, pos==7?red:green, 2);
-	grafiki.x = al_load_bitmap("Resources/reddot.png");
-	al_draw_bitmap(grafiki.x, 255, 240, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
-
-	al_draw_rectangle(105, 290, 145, 330, pos==8?red:green, 2);
-	grafiki.x = al_load_bitmap("Resources/classic.png");
-	al_draw_bitmap(grafiki.x, 105, 290, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
-
-	al_draw_rectangle(155, 290, 195, 330, pos==9?red:green, 2);
-	grafiki.x = al_load_bitmap("Resources/classic2.png");
-	al_draw_bitmap(grafiki.x, 155, 290, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
-
-	al_draw_rectangle(205, 290, 245, 330, pos == 10 ? red : green, 2);
-	grafiki.x = al_load_bitmap("Resources/nyan.png");
 	al_draw_bitmap(grafiki.x, 205, 290, 0);
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+
+	al_draw_rectangle(255, 290, 295, 330, pos==1?red:green, 2);
+	grafiki.x = al_load_bitmap("Resources/red.png");
+	al_draw_bitmap(grafiki.x, 255, 290, 0);
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+
+	al_draw_rectangle(305, 290, 345, 330, pos==2?red:green, 2);
+	grafiki.x = al_load_bitmap("Resources/blue.png");
+	al_draw_bitmap(grafiki.x, 305, 290, 0);
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+
+	al_draw_rectangle(355, 290, 395, 330, pos==3?red:green, 2);
+	grafiki.x = al_load_bitmap("Resources/sweet.png");
+	al_draw_bitmap(grafiki.x, 355, 290, 0);
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+
+	al_draw_rectangle(205, 340, 245, 380, pos==4?red:green, 2);
+	grafiki.x = al_load_bitmap("Resources/bluedot.png");
+	al_draw_bitmap(grafiki.x, 205, 340, 0);
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+
+	al_draw_rectangle(255, 340, 295, 380, pos==5?red:green, 2);
+	grafiki.x = al_load_bitmap("Resources/greendot.png");
+	al_draw_bitmap(grafiki.x, 255, 340, 0);
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+
+	al_draw_rectangle(305, 340, 345, 380, pos==6?red:green, 2);
+	grafiki.x = al_load_bitmap("Resources/sweetdot.png");
+	al_draw_bitmap(grafiki.x, 305, 340, 0);
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+
+	al_draw_rectangle(355, 340, 395, 380, pos==7?red:green, 2);
+	grafiki.x = al_load_bitmap("Resources/reddot.png");
+	al_draw_bitmap(grafiki.x, 355, 340, 0);
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+
+	al_draw_rectangle(205, 390, 245, 430, pos==8?red:green, 2);
+	grafiki.x = al_load_bitmap("Resources/classic.png");
+	al_draw_bitmap(grafiki.x, 205, 390, 0);
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+
+	al_draw_rectangle(255, 390, 295, 430, pos==9?red:green, 2);
+	grafiki.x = al_load_bitmap("Resources/classic2.png");
+	al_draw_bitmap(grafiki.x, 255, 390, 0);
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+
+	al_draw_rectangle(305, 390, 345, 430, pos == 10 ? red : green, 2);
+	grafiki.x = al_load_bitmap("Resources/nyan.png");
+	al_draw_bitmap(grafiki.x, 305, 390, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
 
@@ -292,8 +292,8 @@ void draw_highScore()
 {
 	al_clear_to_color(al_map_rgb(0, 0, 100));
 
-	al_draw_text(font, al_map_rgb(255, 255, 255), 170, 85, 0, "Ranking: ");
-	al_draw_rounded_rectangle(80, 70, 330, 120, 20, 20, al_map_rgba(0, 255, 0, 128), 2);
+	al_draw_text(font, al_map_rgb(255, 255, 255), 270, 185, 0, "Ranking: ");
+	al_draw_rounded_rectangle(180, 170, 430, 220, 20, 20, al_map_rgba(0, 255, 0, 128), 2);
 
 	wyniki w = ReadScores();
 
@@ -302,7 +302,7 @@ void draw_highScore()
 	{
 		char napis[50];
 		sprintf(napis, "%s %d", it->name.c_str(), it->score);
-		al_draw_text(font, al_map_rgb(255, 255, 255), 145, 120 + pos*20, 0, napis);
+		al_draw_text(font, al_map_rgb(255, 255, 255), 245, 220 + pos*20, 0, napis);
 		++pos;
 	}
 

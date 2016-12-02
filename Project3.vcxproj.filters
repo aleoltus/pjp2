@@ -74,6 +74,9 @@
     <Image Include="Resources\snake.png">
       <Filter>Resources</Filter>
     </Image>
+    <Image Include="Resources\tlo.jpg">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

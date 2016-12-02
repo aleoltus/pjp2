@@ -137,6 +137,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
     </Image>
+    <Image Include="Resources\tlo.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gra.h" />
