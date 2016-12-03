@@ -16,8 +16,8 @@ using namespace std;
 
 #define PI 3.14
 
-#define SCREEN_WIDTH 20
-#define SCREEN_HEIGHT 20
+#define SCREEN_WIDTH 30
+#define SCREEN_HEIGHT 30
 
 #define BOX_SIZE 20
 #define HIGH_RAM 20
@@ -368,7 +368,7 @@ void gra(options op)
 	
 	al_clear_to_color(al_map_rgb(255, 233, 0));
 	//al_draw_bitmap(grafiki.tlo, 0, 0, 0);
-	al_draw_line(0, 20, 400, 20, al_map_rgb(0, 0, 0), 1);
+	al_draw_line(0, 20, 600, 20, al_map_rgb(0, 0, 0), 1);
 
 	if (!display)
 		return;
@@ -508,7 +508,7 @@ void gra(options op)
 		al_flip_display();
 		//al_draw_bitmap(grafiki.tlo, 0, 0, 0);
 		al_clear_to_color(al_map_rgb(255, 233, 0));
-		al_draw_line(0, 20, 400, 20, al_map_rgb(0, 0, 0), 1);
+		al_draw_line(0, 20, 600, 20, al_map_rgb(0, 0, 0), 1);
 
 	}
 	
