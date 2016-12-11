@@ -188,29 +188,29 @@ void draw_wybor(int pos, string imie){
 	al_draw_bitmap(grafiki.x, 255, 340, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
-	al_draw_rectangle(305, 340, 345, 380, pos==6?red:green, 2);
+	/*al_draw_rectangle(305, 340, 345, 380, pos==6?red:green, 2);
 	grafiki.x = al_load_bitmap("Resources/sweetdot.png");
 	al_draw_bitmap(grafiki.x, 305, 340, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
-	al_draw_rectangle(355, 340, 395, 380, pos==7?red:green, 2);
+	/*al_draw_rectangle(355, 340, 395, 380, pos==7?red:green, 2);
 	grafiki.x = al_load_bitmap("Resources/reddot.png");
 	al_draw_bitmap(grafiki.x, 355, 340, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
-	al_draw_rectangle(205, 390, 245, 430, pos==8?red:green, 2);
+	/*al_draw_rectangle(205, 390, 245, 430, pos==8?red:green, 2);
 	grafiki.x = al_load_bitmap("Resources/classic.png");
 	al_draw_bitmap(grafiki.x, 205, 390, 0);
-	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
+	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));*/
 
-	al_draw_rectangle(255, 390, 295, 430, pos==9?red:green, 2);
+	al_draw_rectangle(355, 340, 395, 380, pos==7?red:green, 2);
 	grafiki.x = al_load_bitmap("Resources/classic2.png");
-	al_draw_bitmap(grafiki.x, 255, 390, 0);
+	al_draw_bitmap(grafiki.x, 355, 340, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
-	al_draw_rectangle(305, 390, 345, 430, pos == 10 ? red : green, 2);
+	al_draw_rectangle(305, 340, 345, 380, pos == 8 ? red : green, 2);
 	grafiki.x = al_load_bitmap("Resources/nyan.png");
-	al_draw_bitmap(grafiki.x, 305, 390, 0);
+	al_draw_bitmap(grafiki.x, 305, 340, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
 
@@ -219,7 +219,7 @@ void draw_wybor(int pos, string imie){
 
 static bool wybor(options& op, ALLEGRO_EVENT_QUEUE* q)
 {
-	string kolory[] = {"green", "red", "blue", "sweet", "bluedot", "greendot", "sweetdot", "reddot", "classic", "classic2", "nyan"};
+	string kolory[] = {"green", "red", "blue", "sweet", "bluedot","greendot", "nyan","classic2" };
 	int pos = 0;
 
 	while (true)
@@ -234,19 +234,19 @@ static bool wybor(options& op, ALLEGRO_EVENT_QUEUE* q)
 			case ALLEGRO_KEY_LEFT:
 				pos--;
 				if (pos < 0)
-					pos = 10;
+					pos = 8;
 				op.color = kolory[pos];
 				break;
 			case ALLEGRO_KEY_RIGHT:
 				pos++;
-				if (pos > 10)
+				if (pos > 8)
 					pos = 0;
 				op.color = kolory[pos];
 				break;
 			case ALLEGRO_KEY_DOWN:
 				pos += 4;
 				pos %= 12;
-				if (pos > 10)
+				if (pos > 8)
 					pos %= 4;
 				op.color = kolory[pos];
 				break;
@@ -254,7 +254,7 @@ static bool wybor(options& op, ALLEGRO_EVENT_QUEUE* q)
 				pos -= 4;
 				if (pos < 0)
 					pos += 12;
-				if (pos >9)
+				if (pos >8)
 					pos -= 4;
 				op.color = kolory[pos];
 				break;
