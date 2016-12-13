@@ -208,7 +208,7 @@ void draw_wybor(int pos, string imie){
 	al_draw_bitmap(grafiki.x, 355, 340, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
-	al_draw_rectangle(305, 340, 345, 380, pos == 8 ? red : green, 2);
+	al_draw_rectangle(305, 340, 345, 380, pos == 6 ? red : green, 2);
 	grafiki.x = al_load_bitmap("Resources/nyan.png");
 	al_draw_bitmap(grafiki.x, 305, 340, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
