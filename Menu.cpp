@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_primitives.h>
@@ -12,8 +13,9 @@ static bool wybor(options&, ALLEGRO_EVENT_QUEUE*);
 void highScore(ALLEGRO_EVENT_QUEUE* q);
 ALLEGRO_FONT *font;
 ALLEGRO_BITMAP *obrazek;
-
+ALLEGRO_BITMAP *lapka;
 int szer = 600, wys = 600;
+int pos_x = 0, pos_y = 0;
 
 #pragma region menu
 
@@ -24,6 +26,10 @@ void draw_menu(int pos)
 	al_clear_to_color(al_map_rgb(0, 0, 100));
 	obrazek = al_load_bitmap("Resources/snake.png");
 	al_draw_bitmap(obrazek, 190, 190, 0);
+
+	al_clear_to_color(al_map_rgb(0, 0, 100));
+	lapka = al_load_bitmap("Resources/lapka.gif");
+	al_draw_bitmap(lapka, pos_x, pos_y, 0);
 
 	auto white = al_map_rgb(255, 255, 255);
 	auto red = al_map_rgb(255, 0, 0);
@@ -57,22 +63,27 @@ options menu()
 	al_install_keyboard();
 	al_init_ttf_addon();
 	al_init_image_addon();
+	al_install_mouse();
 
 	ALLEGRO_DISPLAY *display = al_create_display(szer, wys);
 	al_set_window_title(display, "Snake - Gra");
 	font = al_load_ttf_font("Resources/font.otf", 15, 0);
 	ALLEGRO_KEYBOARD_STATE keyboard;
-
+    ALLEGRO_MOUSE_STATE mouse;
+	
 	auto event_queue = al_create_event_queue();
 
 	al_get_keyboard_state(&keyboard);
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
+	al_get_mouse_state(&mouse);
+	al_register_event_source(event_queue, al_get_mouse_event_source());
 
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
 	int selected_option = 0;
 
 	draw_menu(selected_option);
+	
 
 	while (!done)
 	{
@@ -123,6 +134,12 @@ options menu()
 			}
 
 			draw_menu(selected_option);
+		}
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_AXES)
+		{
+			pos_x = ev.mouse.x;
+			pos_y = ev.mouse.y;
+
 		}
 	}
 
