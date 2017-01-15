@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_primitives.h>
@@ -13,9 +12,9 @@ static bool wybor(options&, ALLEGRO_EVENT_QUEUE*);
 void highScore(ALLEGRO_EVENT_QUEUE* q);
 ALLEGRO_FONT *font;
 ALLEGRO_BITMAP *obrazek;
-ALLEGRO_BITMAP *lapka;
 int szer = 600, wys = 600;
-int pos_x = 0, pos_y = 0;
+int pos_x = szer / 2;
+int pos_y = wys / 2;
 
 #pragma region menu
 
@@ -26,10 +25,6 @@ void draw_menu(int pos)
 	al_clear_to_color(al_map_rgb(0, 0, 100));
 	obrazek = al_load_bitmap("Resources/snake.png");
 	al_draw_bitmap(obrazek, 190, 190, 0);
-
-	al_clear_to_color(al_map_rgb(0, 0, 100));
-	lapka = al_load_bitmap("Resources/lapka.gif");
-	al_draw_bitmap(lapka, pos_x, pos_y, 0);
 
 	auto white = al_map_rgb(255, 255, 255);
 	auto red = al_map_rgb(255, 0, 0);
@@ -61,21 +56,19 @@ options menu()
 	al_init_primitives_addon();
 	al_init_font_addon();
 	al_install_keyboard();
+	al_install_mouse();
 	al_init_ttf_addon();
 	al_init_image_addon();
-	al_install_mouse();
 
 	ALLEGRO_DISPLAY *display = al_create_display(szer, wys);
 	al_set_window_title(display, "Snake - Gra");
 	font = al_load_ttf_font("Resources/font.otf", 15, 0);
 	ALLEGRO_KEYBOARD_STATE keyboard;
-    ALLEGRO_MOUSE_STATE mouse;
-	
+
 	auto event_queue = al_create_event_queue();
 
 	al_get_keyboard_state(&keyboard);
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
-	al_get_mouse_state(&mouse);
 	al_register_event_source(event_queue, al_get_mouse_event_source());
 
 	al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -83,7 +76,7 @@ options menu()
 	int selected_option = 0;
 
 	draw_menu(selected_option);
-	
+
 
 	while (!done)
 	{
@@ -124,7 +117,7 @@ options menu()
 					op.exit = true;
 					done = true;
 				}
-				
+
 				break;
 
 			case ALLEGRO_KEY_ESCAPE:
@@ -132,15 +125,34 @@ options menu()
 				op.exit = true;
 
 			}
-
 			draw_menu(selected_option);
 		}
-		else if (ev.type == ALLEGRO_EVENT_MOUSE_AXES)
-		{
+		if (ev.type == ALLEGRO_EVENT_MOUSE_AXES) {
 			pos_x = ev.mouse.x;
 			pos_y = ev.mouse.y;
-
 		}
+
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+			if (ev.mouse.button & 1) {
+				if (pos_x > 205 & pos_x < 385 & pos_y > 290 & pos_y < 340) {
+					if (wybor(op, event_queue))
+					{
+						op.exit = false;
+						done = true;
+					}
+				}
+
+				if (pos_x > 205 & pos_x < 385 & pos_y > 350 & pos_y < 400) {
+					highScore(event_queue);
+				}
+
+				if (pos_x > 205 & pos_x < 385 & pos_y > 410 & pos_y < 460) {
+					op.exit = true;
+					done = true;
+				}
+			}
+		}
+		draw_menu(selected_option);
 	}
 
 	al_destroy_display(display);
@@ -157,7 +169,7 @@ struct grafiki
 	ALLEGRO_BITMAP *x;
 
 } grafiki;
-void draw_wybor(int pos, string imie){
+void draw_wybor(int pos, string imie) {
 
 	al_install_keyboard();
 	al_init_image_addon();
@@ -175,32 +187,32 @@ void draw_wybor(int pos, string imie){
 
 	al_draw_text(font, al_map_rgb(255, 255, 255), 210, 200, 0, imie.c_str());
 
-	al_draw_rectangle(205, 290, 245, 330, pos==0?red:green, 2);
-	grafiki.x =  al_load_bitmap("Resources/green.png");
+	al_draw_rectangle(205, 290, 245, 330, pos == 0 ? red : green, 2);
+	grafiki.x = al_load_bitmap("Resources/green.png");
 	al_draw_bitmap(grafiki.x, 205, 290, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
-	al_draw_rectangle(255, 290, 295, 330, pos==1?red:green, 2);
+	al_draw_rectangle(255, 290, 295, 330, pos == 1 ? red : green, 2);
 	grafiki.x = al_load_bitmap("Resources/red.png");
 	al_draw_bitmap(grafiki.x, 255, 290, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
-	al_draw_rectangle(305, 290, 345, 330, pos==2?red:green, 2);
+	al_draw_rectangle(305, 290, 345, 330, pos == 2 ? red : green, 2);
 	grafiki.x = al_load_bitmap("Resources/blue.png");
 	al_draw_bitmap(grafiki.x, 305, 290, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
-	al_draw_rectangle(355, 290, 395, 330, pos==3?red:green, 2);
+	al_draw_rectangle(355, 290, 395, 330, pos == 3 ? red : green, 2);
 	grafiki.x = al_load_bitmap("Resources/sweet.png");
 	al_draw_bitmap(grafiki.x, 355, 290, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
-	al_draw_rectangle(205, 340, 245, 380, pos==4?red:green, 2);
+	al_draw_rectangle(205, 340, 245, 380, pos == 4 ? red : green, 2);
 	grafiki.x = al_load_bitmap("Resources/bluedot.png");
 	al_draw_bitmap(grafiki.x, 205, 340, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
 
-	al_draw_rectangle(255, 340, 295, 380, pos==5?red:green, 2);
+	al_draw_rectangle(255, 340, 295, 380, pos == 5 ? red : green, 2);
 	grafiki.x = al_load_bitmap("Resources/greendot.png");
 	al_draw_bitmap(grafiki.x, 255, 340, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
@@ -220,7 +232,7 @@ void draw_wybor(int pos, string imie){
 	al_draw_bitmap(grafiki.x, 205, 390, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));*/
 
-	al_draw_rectangle(355, 340, 395, 380, pos==7?red:green, 2);
+	al_draw_rectangle(355, 340, 395, 380, pos == 7 ? red : green, 2);
 	grafiki.x = al_load_bitmap("Resources/classic2.png");
 	al_draw_bitmap(grafiki.x, 355, 340, 0);
 	al_convert_mask_to_alpha(grafiki.x, al_map_rgb(225, 225, 225));
@@ -236,7 +248,7 @@ void draw_wybor(int pos, string imie){
 
 static bool wybor(options& op, ALLEGRO_EVENT_QUEUE* q)
 {
-	string kolory[] = {"green", "red", "blue", "sweet", "bluedot","greendot", "nyan","classic2" };
+	string kolory[] = { "green", "red", "blue", "sweet", "bluedot", "greendot", "nyan", "classic2" };
 	int pos = 0;
 
 	while (true)
@@ -251,19 +263,19 @@ static bool wybor(options& op, ALLEGRO_EVENT_QUEUE* q)
 			case ALLEGRO_KEY_LEFT:
 				pos--;
 				if (pos < 0)
-					pos = 8;
+					pos = 7;
 				op.color = kolory[pos];
 				break;
 			case ALLEGRO_KEY_RIGHT:
 				pos++;
-				if (pos > 8)
+				if (pos > 7)
 					pos = 0;
 				op.color = kolory[pos];
 				break;
 			case ALLEGRO_KEY_DOWN:
 				pos += 4;
 				pos %= 12;
-				if (pos > 8)
+				if (pos > 7)
 					pos %= 4;
 				op.color = kolory[pos];
 				break;
@@ -271,11 +283,11 @@ static bool wybor(options& op, ALLEGRO_EVENT_QUEUE* q)
 				pos -= 4;
 				if (pos < 0)
 					pos += 12;
-				if (pos >8)
+				if (pos > 7)
 					pos -= 4;
 				op.color = kolory[pos];
 				break;
-		
+
 			case ALLEGRO_KEY_ENTER:
 				return true;
 			case ALLEGRO_KEY_ESCAPE:
@@ -284,7 +296,7 @@ static bool wybor(options& op, ALLEGRO_EVENT_QUEUE* q)
 				if (op.name.size() > 0)
 					op.name.resize(op.name.size() - 1);
 			}
-			if (ev.keyboard.keycode >= ALLEGRO_KEY_A && ev.keyboard.keycode <= ALLEGRO_KEY_Z && op.name.size() <=20)
+			if (ev.keyboard.keycode >= ALLEGRO_KEY_A && ev.keyboard.keycode <= ALLEGRO_KEY_Z && op.name.size() <= 20)
 			{
 				char litera = 'A' + ev.keyboard.keycode - ALLEGRO_KEY_A;
 				op.name += litera;
@@ -294,10 +306,71 @@ static bool wybor(options& op, ALLEGRO_EVENT_QUEUE* q)
 				char litera = '0' + ev.keyboard.keycode - ALLEGRO_KEY_0;
 				op.name += litera;
 			}
-			
 
 		}
 		draw_wybor(pos, op.name);
+
+		if (ev.type == ALLEGRO_EVENT_MOUSE_AXES) {
+			pos_x = ev.mouse.x;
+			pos_y = ev.mouse.y;
+		}
+
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+			if (ev.mouse.button & 1) {
+				if (pos_x > 205 & pos_x < 245 & pos_y > 290 & pos_y < 330) {
+					pos = 0;
+					op.color = kolory[pos];
+					return true;
+				}
+				//2 255, 290, 295, 330 red
+				if (pos_x > 255 & pos_x < 295 & pos_y > 290 & pos_y < 330) {
+					pos = 1;
+					op.color = kolory[pos];
+					return true;
+				}
+				//3 305, 290, 345, 330 blue
+				if (pos_x > 305 & pos_x < 345 & pos_y > 290 & pos_y < 330) {
+					pos = 2;
+					op.color = kolory[pos];
+					return true;
+				}
+				//4 355, 290, 395, 330 sweet
+				if (pos_x > 355 & pos_x < 395 & pos_y > 290 & pos_y < 330) {
+					pos = 3;
+					op.color = kolory[pos];
+					return true;
+				}
+				//5 205, 340, 245, 380 bludot
+				if (pos_x > 205 & pos_x < 245 & pos_y > 340 & pos_y < 380) {
+					pos = 4;
+					op.color = kolory[pos];
+					return true;
+				}
+				//6 255, 340, 295, 380 greendot
+				if (pos_x > 255 & pos_x < 295 & pos_y > 340 & pos_y < 380) {
+					pos = 5;
+					op.color = kolory[pos];
+					return true;
+				}
+				//8 355, 340, 395, 380 nyan
+				if (pos_x > 305 & pos_x < 345 & pos_y > 340 & pos_y < 380) {
+					pos = 6;
+					op.color = kolory[pos];
+					return true;
+				}
+				//9 305, 340, 345, 380 classic
+				if (pos_x > 355 & pos_x < 395 & pos_y > 340 & pos_y < 380) {
+					pos = 7;
+					op.color = kolory[pos];
+					return true;
+				}
+				draw_wybor(pos, op.name);
+			}
+			//tu tez po kliknieciu
+			if (ev.mouse.button & 2) {
+			}
+			draw_wybor(pos, op.name);
+		}
 	}
 }
 
@@ -319,7 +392,7 @@ void draw_highScore()
 	{
 		char napis[50];
 		sprintf(napis, "%s %d", it->name.c_str(), it->score);
-		al_draw_text(font, al_map_rgb(255, 255, 255), 245, 220 + pos*20, 0, napis);
+		al_draw_text(font, al_map_rgb(255, 255, 255), 245, 220 + pos * 20, 0, napis);
 		++pos;
 	}
 

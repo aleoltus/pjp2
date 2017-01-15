@@ -374,10 +374,12 @@ void gra(options op)
 		return;
 
 	al_install_keyboard();
+
 	al_init_image_addon();
 	al_init_font_addon();
 	al_init_ttf_addon();
 	al_init_primitives_addon();
+
 
 	al_set_window_title(display, "Snake - Gra");
 
@@ -389,8 +391,9 @@ void gra(options op)
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-	al_start_timer(timer);
 
+	al_start_timer(timer);
+	
 	//do obs³ugi miny
 	int counter = 0;
 	int hackCounter = 0;
@@ -509,9 +512,8 @@ void gra(options op)
 		//al_draw_bitmap(grafiki.tlo, 0, 0, 0);
 		al_clear_to_color(al_map_rgb(255, 233, 0));
 		al_draw_line(0, 20, 600, 20, al_map_rgb(0, 0, 0), 1);
-
 	}
-	
 	al_destroy_display(display);
+	
 	//al_destroy_bitmap(grafiki.tlo);
 }
